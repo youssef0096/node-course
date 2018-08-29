@@ -4,18 +4,20 @@ const port = process.env.PORT || 3000;
 
 
 var app = express();
+hbs.registerPartials(__dirname + '/views/partials');
+
 app.set('view engine', 'hbs');
 app.get('/', (req, res) => {
-    //res.send('hello');
-    res.send(JSON.stringify({
-        name: 'joe',
-        age: 16
-    }));
+    res.render('home.hbs');
 });
 
-app.get('/kos/kaskos', (req, res) => {
-    res.render('about.hbs', { KASKOS: req.params.kaskos });
+app.get('/projects', (req, res) => {
+    res.render('projects.hbs');
+});
+
+app.get('/kos/:id', (req, res) => {
+    res.render('about.hbs', { KASKOS: req.params.id });
 })
-app.listen(port, ()=>{
-	console.log(`server is running up on port ${port}`)
+app.listen(port, () => {
+    console.log(`server is running up on port ${port}`)
 });
